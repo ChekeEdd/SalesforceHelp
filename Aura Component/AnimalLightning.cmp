@@ -1,0 +1,27 @@
+<aura:component controller="AnimalController" implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="similarProperties" type="Object[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadAnimals}"/>
+    <div class="slds">
+    <table class="slds-table slds-table--bordered slds-table--striped">
+        <thead>
+            <tr>
+                <th scope="col"><span class="slds-truncate">Animal Name</span></th>
+                <th scope="col"><span class="slds-truncate">Says</span></th>
+                <th scope="col"><span class="slds-truncate">Eats</span></th>
+                <th scope="col"><span class="slds-truncate">ExtId</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.similarProperties}" var="animal">
+                <tr>
+                    <td>{!animal.Name}</td>
+                    <td>{!animal.says__c}</td>
+                    <td>{!animal.eats__c}</td>
+                    <td>{!animal.extId__c}</td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+        </div>
+</aura:component>
