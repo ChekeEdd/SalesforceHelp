@@ -17,7 +17,7 @@ public class AnimalsCallouts {
         
         List<Animal__c> animals = [SELECT Name, says__c, eats__c, extId__c
                   FROM animal__c
-                  WHERE Id IN :id_s
+                  WHERE Id = :id_s
                   AND extId__c != null];
         for(Animal__c an : animals){
             String extid = an.extId__c;
@@ -25,18 +25,12 @@ public class AnimalsCallouts {
                 AnimalModel mod = getAnimalById(extid, http);
                 animalM.put(extid, mod);
                 }
-            convertField(animalM.get(extid), an);
+            
         }
         update animals;
     }
     
-    public static void convertField(AnimalModel animalmod, Animal__c animal){
-        
-        animal.Name = animalmod.name;
-        animal.Says__c = animalmod.says;
-        animal.Eats__c = animalmod.eats;
-        
-    }
+    
     
     public static HttpRequest getRequestId(String Ids){
         
