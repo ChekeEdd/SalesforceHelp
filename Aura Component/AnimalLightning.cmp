@@ -1,27 +1,39 @@
 <aura:component controller="AnimalController" implements="force:hasRecordId,flexipage:availableForAllPageTypes">
     <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="filterValue" type="String"/>
     <aura:attribute name="similarProperties" type="Object[]"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
     <aura:handler name="init" value="{!this}" action="{!c.loadAnimals}"/>
-    <div class="slds">
-    <table class="slds-table slds-table--bordered slds-table--striped">
-        <thead>
-            <tr>
-                <th scope="col"><span class="slds-truncate">Animal Name</span></th>
-                <th scope="col"><span class="slds-truncate">Says</span></th>
-                <th scope="col"><span class="slds-truncate">Eats</span></th>
-                <th scope="col"><span class="slds-truncate">ExtId</span></th>
-            </tr>
-        </thead>
-        <tbody>
-            <aura:iteration items="{!v.similarProperties}" var="animal">
-                <tr>
-                    <td>{!animal.Name}</td>
-                    <td>{!animal.says__c}</td>
-                    <td>{!animal.eats__c}</td>
-                    <td>{!animal.extId__c}</td>
-                </tr>
-            </aura:iteration>
-        </tbody>
-    </table>
-        </div>
+    <lightning:layout>
+      <lightning:layoutItem padding="around-small" size="6">
+    	<div aria-labelledby="Filter">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend class="slds-text-heading--small 
+          slds-p-vertical--medium">
+          Filter
+        </legend>
+    	<lightning:layout >
+            <lightning:layoutItem padding="around-small" size="8">
+      	      <form class="slds-form--stacked">          
+           		 <lightning:input aura:id="filter" label="Find string"
+                             name="findString"
+                             value="{!v.filterValue}"
+                             minlength="3"/> 
+          	  <lightning:button label="search" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.onFilterClick}"/>
+     		</form>
+      	  </lightning:layoutItem>
+  	    </lightning:layout>
+      </fieldset>
+          </div>
+            </lightning:layoutItem>
+    </lightning:layout>
+<lightning:datatable data="{!v.data}" 
+        columns="{!v.columns}" 
+        keyField="id"
+        hideCheckboxColumn="true"/>
 </aura:component>
