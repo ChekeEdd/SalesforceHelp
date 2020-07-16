@@ -1,7 +1,5 @@
-trigger AnimalTrigger on Animal__c (after insert) {    
+trigger CaseCloseControllerTrigger on Case (before update) {
     
-    if(Trigger.isAfter){
-        AnimalsCallouts.mainGetAnimal(Trigger.newMap.keySet());        
-    }
+    CaseCloseController.caseError(Trigger.New);
 
 }
