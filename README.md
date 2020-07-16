@@ -1,1 +1,1 @@
-# SyneboHomeTask
+# Some examples for developers
