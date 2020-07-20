@@ -10,11 +10,13 @@
     @isTest private static void WarehouseEquipmentSync(){
         
         Test.startTest();
-        // This causes a fake response to be sent from the class that implements HttpCalloutMock. 
         WarehouseCalloutService.runWarehouseEquipmentSync();
         Test.stopTest();        
-        System.assertEquals(1, [SELECT count() FROM Product2]);
-              
+        Product2 equipment = [SELECT Id, Current_Inventory__c, Replacement_Part__c, Name, Maintenance_Cycle__c, Lifespan_Months__c, Cost__c, Warehouse_SKU__c
+                              FROM Product2];
+        System.assertEquals('Generator 1000 kW', equipment.Name);
+        System.assertEquals('100003', equipment.Warehouse_SKU__c);
+        
         
     }
     
