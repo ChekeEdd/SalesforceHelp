@@ -27,13 +27,14 @@ private class MaintenanceRequestTest{
         insertList.add(mrInsert);
         Test.startTest();
         insert insertList;
-        System.assertEquals(2, insertList.size());
         for(Case case_i : insertList){
             case_i.Status = 'Closed';
             updateList.add(case_i);
         }
         update updateList;
-        System.assertEquals(2, updateList.size());
         Test.stopTest();
+        System.assertEquals(2, updateList.size());
+        List<Case> cases = [select id from case];
+        System.assertEquals(3, cases.size());
     }
 }
