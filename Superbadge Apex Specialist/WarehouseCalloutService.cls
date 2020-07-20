@@ -25,7 +25,7 @@ public with sharing class WarehouseCalloutService {
                 newEquipment.Maintenance_Cycle__c = (Decimal)resultMap.get('maintenanceperiod');
                 newEquipment.Lifespan_Months__c = (Integer)resultMap.get('lifespan');
                 newEquipment.Cost__c = (Decimal)resultMap.get('cost');
-                newEquipment.Warehouse_SKU__c = (String)resultMap.get('sku');              
+                newEquipment.Warehouse_SKU__c = String.valueOf(resultMap.get('sku'));             
                 equipmentToUpdate.add(newEquipment);  
             }
             upsert equipmentToUpdate;
