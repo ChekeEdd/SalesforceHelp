@@ -4,7 +4,16 @@ trigger MaintenanceRequest on Case (before update, after update) {
                                  FROM Case 
                                  WHERE status = 'Closed' 
                                  AND (Type = 'Repair' OR Type ='Routine Maintenance') 
-                                 AND ID =:Trigger.New];    
-     MaintenanceRequestHelper.updateWorkOrders(ClosedCaseList);
-
+                                 AND ID IN :Trigger.New];
+    if(Trigger.isAfter){
+        if(Trigger.isUpdate){
+            MaintenanceRequestHelper.updateWorkOrders(ClosedCaseList);
+        }
+    }
+    if(Trigger.isBefore){
+        if(Trigger.isUpdate){
+            MaintenanceRequestHelper.updateWorkOrders(ClosedCaseList);
+        }
+    }
+    
 }
