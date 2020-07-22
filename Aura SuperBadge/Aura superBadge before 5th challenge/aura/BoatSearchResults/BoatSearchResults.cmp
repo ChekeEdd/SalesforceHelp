@@ -1,0 +1,23 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="BoatSearchResults">
+    <aura:handler name="init" action="{!c.doSearch}" value="{!this}" />
+    <aura:attribute name="boatTypeId" type="String" />
+    <aura:attribute name="boats" type="Boat__c[]" />
+
+    <aura:method name="search" description="accepts boatTypeId
+                                            and executes search that refreshes the boats attribute">
+        <aura:attribute name="boatTypeId" type="Id" />
+    </aura:method>
+
+    <aura:if isTrue="{!not(empty(v.boats))}">
+        <lightning:layout multipleRows="true" horizontalAlign="center">
+            <aura:iteration items="{!v.boats}" var="boatVar">
+                <lightning:layoutItem flexibility="grow" class="slds-m-right_small">
+                    <c:BoatTile boat="{!boatVar}" />
+                </lightning:layoutItem>
+            </aura:iteration>
+        </lightning:layout>
+        <aura:set attribute="else">
+            <div class="slds-align_absolute-center">No boats found</div>
+        </aura:set>
+    </aura:if>
+</aura:component>
