@@ -1,0 +1,4 @@
+<design:component >
+    <design:attribute name="strName" label="Enter Name"/>
+    <design:attribute name="Fields" datasource="apex://MyCustomPickList"/>    
+</design:component>
