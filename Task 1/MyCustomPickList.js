@@ -7,16 +7,18 @@
         action.setParams({KeyWord:searchText, typeField: typefield} );
         action.setCallback(this, function(response) {
             var state = response.getState();
-            var cases;
+            var cases, labels;
+            
             if (state === 'SUCCESS') {
                 cases = response.getReturnValue().objects;
+                labels = response.getReturnValue().labels;
                 console.log(cases);
             }
             component.set("v.data", cases);
             if(typefield !== 'CaseNumber'){
             component.set('v.columns',[                
                 {label: 'Case Number', fieldName: 'CaseNumber', type: 'text'},
-                {label: typefield, fieldName: typefield, type: 'text'}] )
+                {label: labels[typefield], fieldName: typefield, type: 'text'}] )
                 }
             else{
                 component.set('v.columns',[                
