@@ -31,7 +31,9 @@
             </div>
         </lightning:layoutItem>
     </lightning:layout>
-    <lightning:datatable data="{!v.data}" 
-                         keyField="id"
-                         columns="{!v.columns}"/>    
+    <div style="height: 150px">
+        <lightning:datatable data="{!v.data}" 
+                             keyField="id"
+                             columns="{!v.columns}"/> 
+    </div>
 </aura:component>
