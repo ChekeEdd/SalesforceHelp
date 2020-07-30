@@ -15,15 +15,25 @@ public class searchCases {
         String query = 'SELECT Id, ' + String.join(fields, ', ') + ' FROM Case WHERE '+ typeField +' LIKE \'' + searchKey +'\' LIMIT 50';
         System.debug('query ' + query);            
         List<Case> caseList = Database.query(query);  
-        System.debug(caseList);         
+        System.debug(caseList);
+        List<Map<String, Object>> listOfMaps = new List<Map<String, Object>>();
         Map<String, Schema.SObjectField> fieldMap = Schema.SObjectType.Case.fields.getMap();
         System.debug(fieldMap);
-        Schema.DescribeFieldResult dfr = fieldMap.get('CaseNumber').getDescribe();
-        Map<String, Object> link = new Map<String, Object>{ 'target' => '_blank', 'label' => new Map<String, String>{'fieldName' => 'CaseNumber'}};
-        Map<String, Object> labels = new Map<String, Object>{'fieldName' => 'CaseLink', 'label' => dfr.getLabel() , 'type' => 'url' , 'typeAttributes' => link};
-        Schema.DescribeFieldResult dfr2 = fieldMap.get(typeField).getDescribe();
-        Map<String, Object> labels2 = new Map<String, Object>{'fieldName' => typeField, 'label' => dfr2.getLabel() , 'type' => 'text'};   
-        List<Map<String, Object>> listOfMaps = new List<Map<String, Object>>{labels,labels2};             
+        if(caseNumber.equals(typeField)){
+            Schema.DescribeFieldResult dfr = fieldMap.get('CaseNumber').getDescribe();
+            Map<String, Object> link = new Map<String, Object>{ 'target' => '_blank', 'label' => new Map<String, String>{'fieldName' => 'CaseNumber'}};
+                Map<String, Object> labels = new Map<String, Object>{'fieldName' => 'CaseLink', 'label' => dfr.getLabel() , 'type' => 'url' , 'typeAttributes' => link};
+                    listOfMaps.add(labels);
+        } 
+        else {
+            Schema.DescribeFieldResult dfr = fieldMap.get('CaseNumber').getDescribe();
+            Map<String, Object> link = new Map<String, Object>{ 'target' => '_blank', 'label' => new Map<String, String>{'fieldName' => 'CaseNumber'}};
+                Map<String, Object> labels = new Map<String, Object>{'fieldName' => 'CaseLink', 'label' => dfr.getLabel() , 'type' => 'url' , 'typeAttributes' => link};
+                    Schema.DescribeFieldResult dfr2 = fieldMap.get(typeField).getDescribe();
+            Map<String, Object> labels2 = new Map<String, Object>{'fieldName' => typeField, 'label' => dfr2.getLabel() , 'type' => 'text'};   
+                listOfMaps.add(labels);
+            listOfMaps.add(labels2);
+        }
         ResponseWrapper resp = new ResponseWrapper(listOfMaps, caseList);
         System.debug(resp);
         return resp;
