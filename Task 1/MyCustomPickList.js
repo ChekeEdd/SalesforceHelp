@@ -11,10 +11,16 @@
             if (state === 'SUCCESS') {
                 cases = response.getReturnValue().objects;
                 table = response.getReturnValue().listOfMaps;
+                cases.forEach(function(field){
+                    field.CaseLink = '/' + field.Id;
+                    
+                });
                 console.log(cases);
             }
+            
             component.set("v.data", cases);
             component.set("v.columns", table);
+            
             
         });
         
