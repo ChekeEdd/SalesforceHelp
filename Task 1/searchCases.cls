@@ -1,8 +1,14 @@
 public class searchCases {
     
+    public class searchCasesException extends Exception{                
+    }
+    
     @AuraEnabled
     public static ResponseWrapper findCase(String KeyWord, String typeField) {
-        String searchKey = '%' + KeyWord + '%';
+        String searchKey; //= '%' + KeyWord + '%';
+        if(!String.isBlank(KeyWord)){
+            searchKey =  '%' + KeyWord + '%';
+        } else throw new searchCasesException('Pleas type smth');
         String caseNumber = 'CaseNumber';
         List<String> fields = new List<String>();
         if(caseNumber.equals(typeField)){
