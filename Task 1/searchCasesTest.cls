@@ -1,21 +1,15 @@
 @isTest
-public class searchCasesTest {
+public class searchCasesTest { 
     
-   @TestSetup private static void setupmethod(){
-        
-        Case case1 = new Case(Origin = 'Email', Status = 'New', Subject = 'generator');
-        insert case1;        
+    @isTest private static void fetchCaseTest(){
+        Case insertTestCase = new Case(Origin = 'Email', Status = 'Closed');
+        insert insertTestCase ; 
+        test.startTest();        
+        searchCases.ResponseWrapper resp = searchCases.findCase('Closed','Status');
+        test.stopTest();
+        System.assertEquals(2, resp.listOfMaps.size());
+        Case testCase = [SELECT Id, CaseNumber, Status FROM Case LIMIT 1];
+        System.assertEquals(true ,resp.objects.contains(testCase));
     }
     
-    @isTest private static void findCaseTest(){
-        
-        Case case1 = [select id from Case];
-        Test.startTest();
-        searchCases.findCase('generator', 'Subject');
-        Test.stopTest();
-        case1 = [select id, Subject from case];
-        System.assertEquals('generator', case1.Subject);
-        
-    }
-
 }
