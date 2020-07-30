@@ -15,15 +15,15 @@
                     field.CaseLink = '/' + field.Id;
                     
                 });
-                console.log(cases);
-            }
+                console.log("blasasd");
+            }else alert(response.getError()[0].message);
             
             component.set("v.data", cases);
             component.set("v.columns", table);
             
             
         });
-        
+       
         $A.enqueueAction(action);
     }
 })
