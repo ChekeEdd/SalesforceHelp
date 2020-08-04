@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="searchCasesController">
+    <aura:attribute name="strName" type="String"/>
+    <aura:attribute name="Fields" type="String"/> 
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="records" type="String" required="true" access="global" default="10"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="dataSize" type="Integer" default="0"/>
+    <aura:attribute name="isLastPage" type="Boolean" default="true"/>
+    <aura:attribute name="count" type="Integer" default="0"/>
+    
+    
+    <lightning:card title="Case Search" iconName="standard:search"> 
+        <lightning:layout>
+            <lightning:layoutItem size="10"  class="slds-p-left_medium">
+                <lightning:input aura:id="filter"
+                                 placeholder="Search Cases.."                         
+                                 name="findString"
+                                 value="{!v.strName}"
+                                 onchange="{!c.activeButton}"/> 
+                
+            </lightning:layoutItem>        
+            <lightning:layoutItem  class="slds-p-left_small">        
+                <lightning:button label="Search" 
+                                  class="slds-m-top--medium"
+                                  variant="brand"
+                                  onclick="{!c.searchClick}"
+                                  disabled="{!empty(v.strName)}"/>         
+            </lightning:layoutItem>
+        </lightning:layout>
+        
+        <div class="slds-p-vertical_x-small"></div>
+        
+       
+        
+        <div class="{!v.count != 0 ? 'slds-show' : 'slds-hide'}">
+        <div style="height: 185px" class="slds-p-horizontal_medium">
+            <lightning:datatable aura:id="caseTable"
+                                 data="{!v.data}" 
+                                 keyField="id"
+                                 columns="{!v.columns}"
+                                 hideCheckboxColumn="true"/>
+        </div>
+        
+        
+        
+        <lightning:layout class="slds-p-vertical_x-small">          
+            
+            <lightning:layoutItem  class="slds-p-left_medium">                                
+                <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                  onclick="{!c.handlePrev}" disabled="{!v.pageNumber == 1}"/>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem class="slds-align_absolute-center">
+                <div class="slds-m-top_x-small">                    
+                    <p>Page {!v.pageNumber}/{!v.count}</p>                    
+                </div>
+            </lightning:layoutItem> 
+            
+            <lightning:layoutItem class="slds-p-right_medium">
+                <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                  disabled="{!v.isLastPage}" onclick="{!c.handleNext}"/>                
+            </lightning:layoutItem>                       
+            
+        </lightning:layout>
+        </div>
+    </lightning:card>    
+</aura:component>

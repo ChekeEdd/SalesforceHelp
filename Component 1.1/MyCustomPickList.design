@@ -1,0 +1,4 @@
+<design:component>
+    <design:attribute name="records" label="Records per page" /> 
+    <design:attribute name="Fields" datasource="apex://MyCustomPickList"/>    
+</design:component>
