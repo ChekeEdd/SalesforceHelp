@@ -1,4 +1,4 @@
-public class CaseCountHandler { 
+public class CaseCountTriggerHandler { 
      
      public static void caseCount(List<Case> lstCase){ 
          
