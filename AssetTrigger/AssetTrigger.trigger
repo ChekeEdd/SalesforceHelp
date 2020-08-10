@@ -1,4 +1,4 @@
-trigger AssetTrigger on Asset__c (after insert, after delete) {
+trigger AssetTrigger on Asset__c (after insert) {
     
     
     Set<Id> sConId = new Set<Id>();
