@@ -8,11 +8,7 @@ trigger AssetTrigger on Asset__c (after insert, after delete) {
         }
     }   
     
-    if(Trigger.isAfter){ 
-        if(Trigger.isDelete){
-            AssetTriggerHandler batchT = new AssetTriggerHandler(sConId);
-            Id batchId = Database.executeBatch(batchT, 50);
-        }
+    if(Trigger.isAfter){       
         if(Trigger.isInsert){
             AssetTriggerHandler batchT = new AssetTriggerHandler(sConId);
             Id batchId = Database.executeBatch(batchT, 50);
