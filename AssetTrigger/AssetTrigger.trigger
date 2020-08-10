@@ -17,10 +17,6 @@ trigger AssetTrigger on Asset__c (after insert) {
             AssetTriggerHandler batchT = new AssetTriggerHandler(sConId);
             Id batchId = Database.executeBatch(batchT, 50);
         }
-        if(Trigger.isUpdate){
-            AssetTriggerHandler batchT = new AssetTriggerHandler(sConId);
-            Id batchId = Database.executeBatch(batchT, 50);
-        }
-        
+  
     }
 }
